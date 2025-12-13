@@ -22,7 +22,7 @@
         <h2 class="text-center text-3xl font-bold mb-6">Login to Your Account</h2>
 
         {{-- Login Form --}}
-        <form method="POST" action="{{ route('api.login') }}">
+        <form method="POST" action="{{ route('login.web') }}">
             @csrf
 
             {{-- Email --}}

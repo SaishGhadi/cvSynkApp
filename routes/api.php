@@ -13,6 +13,9 @@ Route::get('/user', function (Request $request) {
 Route::post('/register/company/user', [AuthApiController::class, 'storeCompany'])->name('company.Register');
 Route::post('/register/candidate/user', [AuthApiController::class, 'storeCandidate'])->name('candidate.Register');
 
-Route::post('/login', [AuthApiController::class, 'login'])->name('api.login');
+// Route::post('/login', [AuthApiController::class, 'login'])->name('api.login');
+
+Route::post('/login', [AuthApiController::class, 'login']);
+
 
 Route::middleware('auth:sanctum')->post('/logout', [AuthApiController::class, 'logout']);

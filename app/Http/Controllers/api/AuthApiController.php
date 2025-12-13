@@ -1,13 +1,16 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
+
 
 class AuthApiController extends Controller
 {
@@ -70,7 +73,8 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'Company registered successfully',
             'user' => $user
-        ], 201);
+        ], 201),
+        redirect()->route('company.dashboard');
     }
 
     /**
@@ -79,43 +83,40 @@ class AuthApiController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email'    => 'required|email',
+            'password' => 'required'
         ]);
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'message' => 'Invalid login credentials'
-            ], 401);
+            return response()->json(['message' => 'Invalid login credentials'], 401);
         }
 
         $user = Auth::user();
 
-        // Generate token for API authentication
         $token = $user->createToken('api_token')->plainTextToken;
 
-        // Returning dashboard route based on user role
         $redirectTo = $user->role === 'candidate'
             ? '/candidate/dashboard'
             : '/company/dashboard';
 
-        
         return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-            'token' => $token,
+            'message'     => 'Login successful',
+            'user'        => $user,
+            'token'       => $token,
             'redirect_to' => $redirectTo
-        ], 200);
+        ]);
     }
 
+    /**
+     * API Logout (Revoke Token)
+     */
     public function logout(Request $request)
     {
-        // Delete the token that was used for the current request
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message' => 'Logged out successfully (token revoked)'
-        ], 200);
+            'message' => 'Logged out successfully'
+        ]);
     }
 
 
