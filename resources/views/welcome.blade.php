@@ -8,27 +8,32 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gradient-to-b from-[#0052A2] to-[#0274D3] text-white">
+<body class="bg-gradient-to-b from-[#0052A2] to-[#0274D3] text-white min-h-screen">
 
     {{-- NAVBAR --}}
     <header class="w-full border-b border-white/10 bg-[#002C59]/20 backdrop-blur">
         <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-4 sm:px-6">
 
             {{-- Logo --}}
-            <img src="{{ asset('assets/logo-inverted.svg') }}" class="h-8 sm:h-10" alt="Logo">
+            <img src="{{ asset('assets/logo-inverted.svg') }}" class="h-8 sm:h-10" alt="CV SYNK Logo">
 
-            {{-- Buttons --}}
-            <div class="flex items-center gap-2 sm:gap-3">
+            {{-- Actions --}}
+            <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                 <a href="{{ route('candidateRegister') }}"
-                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white text-[#003A75] font-medium text-xs sm:text-sm">
+                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full
+                          bg-white text-[#003A75] font-medium hover:scale-105 transition">
                     Candidate Register
                 </a>
+
                 <a href="{{ route('companyRegister') }}"
-                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white text-[#003A75] font-medium text-xs sm:text-sm">
+                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full
+                          bg-white text-[#003A75] font-medium hover:scale-105 transition">
                     Company Register
                 </a>
+
                 <a href="{{ route('login') }}"
-                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-600 font-medium text-xs sm:text-sm">
+                    class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full
+                          bg-blue-600 hover:bg-blue-700 font-medium transition">
                     Login
                 </a>
             </div>
@@ -37,9 +42,9 @@
 
     {{-- HERO SECTION --}}
     <section class="w-full py-20 sm:py-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10 items-center">
 
-            {{-- Left Text --}}
+            {{-- Left --}}
             <div>
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                     Access 75+ <br>
@@ -49,45 +54,26 @@
                 </h1>
 
                 <p class="mt-4 sm:mt-6 text-base sm:text-lg text-white/85 max-w-lg">
-                    India's First Recruitment Marketplace connecting companies with verified recruitment agencies.
-                    Reduce hiring costs by 40% and hire 3x faster.
+                    India's first recruitment marketplace connecting companies with
+                    verified recruitment agencies. Reduce hiring costs by 40% and
+                    hire 3× faster.
                 </p>
 
-                <button
-                    class="mt-6 sm:mt-8 px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-[#003A75] rounded-full font-semibold shadow-lg">
-                    Post A Free Job
-                </button>
+                <a href="{{ route('companyRegister') }}"
+                    class="inline-block mt-6 sm:mt-8 px-5 sm:px-6 py-2.5 sm:py-3
+                          bg-white text-[#003A75] rounded-full font-semibold
+                          shadow-lg hover:scale-105 transition">
+                    Post a Free Job
+                </a>
             </div>
 
-            {{-- Right Stats Card --}}
+            {{-- Right Stats --}}
             <div class="flex justify-center">
                 <div
-                    class="bg-white/15 backdrop-blur-lg border border-white/10 rounded-2xl 
-                    p-6 sm:p-10 w-full max-w-sm sm:max-w-md">
+                    class="bg-white/15 backdrop-blur-lg border border-white/10
+                            rounded-2xl p-6 sm:p-10 w-full max-w-sm sm:max-w-md">
 
-                    <div class="grid grid-cols-2 gap-6 sm:gap-8 text-center">
-
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold">75+</h3>
-                            <p class="mt-1 text-white/80 text-xs sm:text-sm">Verified Agencies</p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold">500+</h3>
-                            <p class="mt-1 text-white/80 text-xs sm:text-sm">Positions Filled</p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold">250+</h3>
-                            <p class="mt-1 text-white/80 text-xs sm:text-sm">Companies Trust Us</p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-2xl sm:text-3xl font-bold">95%</h3>
-                            <p class="mt-1 text-white/80 text-xs sm:text-sm">Success Rate</p>
-                        </div>
-
-                    </div>
+                    
                 </div>
             </div>
 

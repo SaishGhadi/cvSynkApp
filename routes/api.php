@@ -27,16 +27,16 @@ Route::middleware(['auth:sanctum', 'company'])->group(function () {
     //to craete New job
     Route::post('/company/jobs', [JobApiController::class, 'store']);
     //to get jobs list
-    Route::get('/company/jobs/all', [JobApiController::class, 'retreveJobs']);
+    Route::get('/company/jobs/all', [JobApiController::class, 'index']);
 
     // GET jobs/{uuid} – job details
-    Route::get('/company/jobs/{uuid}', [JobApiController::class, 'retreveJobInfo']);
+    Route::get('/company/jobs/{uuid}', [JobApiController::class, 'show']);
 
     //update job 
-    Route::put('/company/jobs/{uuid}', [JobApiController::class, 'updateJobs']);
+    Route::put('/company/jobs/{uuid}', [JobApiController::class, ' update']);
 
     // delete job 
-    Route::delete('/company/jobs/{uuid}', [JobApiController::class, 'deleteJob']);
+    Route::delete('/company/jobs/{uuid}', [JobApiController::class, 'destroy']);
 
 });
 

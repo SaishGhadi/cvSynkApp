@@ -3,6 +3,7 @@
 use App\Http\Controllers\JobWebController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\candidateWebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,18 +41,27 @@ Route::post('/logout', [authController::class, 'logout'])->name('logout.web');
 
 Route::middleware(['auth', 'company'])->prefix('company')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('company.dashboard');
-    })->name('company.dashboard');
+    Route::get('/dashboard', fn() => view('company.dashboard'))
+        ->name('company.dashboard');
 
-    Route::get('/jobs', [JobWebController::class, 'showJobsList'])
+    Route::get('/jobs', [JobWebController::class, 'index'])
         ->name('company.jobs.list');
+    // redirect to job creation form
+    Route::get('/company/jobs/', [JobWebController::class, 'showCreateJobForm'])
+        ->name('company.jobs.showForm');
 
-    Route::get('/jobs/create', [JobWebController::class, 'showCreateJobForm'])
-        ->name('company.job.create');
+    // to store new job store func()
+    Route::post('/jobs', [JobWebController::class, 'store'])
+        ->name('company.jobs.store');
 
-    Route::post('/company/jobs', [JobWebController::class, 'store'])->name('company.jobs.store');
+    Route::get('/jobs/{uuid}', [JobWebController::class, 'show'])
+        ->name('company.jobs.show');
 
+    Route::delete('/jobs/{uuid}', [JobWebController::class, 'destroy'])
+        ->name('company.jobs.delete');
+
+    Route::put('/jobs/{uuid}', [JobWebController::class, 'update'])
+        ->name('company.jobs.update');
 });
 
 /*
@@ -62,11 +72,14 @@ Route::middleware(['auth', 'company'])->prefix('company')->group(function () {
 
 Route::middleware(['auth', 'candidate'])->prefix('candidate')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('candidate.dashboard');
-    })->name('candidate.dashboard');
+    Route::get('/dashboard', [candidateWebController::class, 'load'])->name('candidate.dashboard');
 
-    // Future:
-    // Route::get('/jobs', ...)
-    // Route::get('/applications', ...)
+
+
+    Route::post('/jobs/{uuid}/apply', [candidateWebController::class, 'apply'])
+        ->name('candidate.jobs.apply');
+
+    Route::get('/my-applications', [candidateWebController::class, 'show'])
+        ->name('candidate.applied.jobs');
+
 });

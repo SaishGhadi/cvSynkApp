@@ -16,6 +16,11 @@ class JobWebController extends Controller
         return view('company.jobs.createJob');
     }
 
+    // public function showJobsList()
+    // {
+    //     return view('company.jobs.index');
+    // }
+
 
     public function store(Request $request)
     {
@@ -24,7 +29,8 @@ class JobWebController extends Controller
             'description' => 'required|string',
             'salary_from' => 'required|numeric|min:0',
             'salary_to' => 'required|numeric|gte:salary_from',
-            'status' => 'required|in:active,inactive',
+            
+
         ]);
 
         $job = Jobs::create([
@@ -34,14 +40,12 @@ class JobWebController extends Controller
             'company_uuid' => auth()->user()->uuid,
             'salary_from' => $validated['salary_from'],
             'salary_to' => $validated['salary_to'],
-            'status' => $validated['status'],
+            'status' => 'active',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Jobs created successfully',
-            'data' => $job
-        ], 201);
+        return redirect()
+            ->route('company.jobs.list')
+            ->with('success', 'Job created successfully!');
     }
 
     /**
@@ -49,12 +53,11 @@ class JobWebController extends Controller
      */
     public function index()
     {
-        $jobs = Jobs::where('company_uuid', auth()->user()->uuid)->get();
+        $jobs = Jobs::where('company_uuid', auth()->user()->uuid)
+            ->select('id', 'uuid', 'title')
+            ->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $jobs
-        ]);
+        return view('company.jobs.index', compact('jobs'));
     }
 
     /**
@@ -64,19 +67,9 @@ class JobWebController extends Controller
     {
         $job = Jobs::where('uuid', $uuid)
             ->where('company_uuid', auth()->user()->uuid)
-            ->first();
+            ->firstOrFail();
 
-        if (!$job) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Jobs not found'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $job
-        ]);
+        return response()->json($job);
     }
 
     /**
@@ -86,30 +79,16 @@ class JobWebController extends Controller
     {
         $job = Jobs::where('uuid', $uuid)
             ->where('company_uuid', auth()->user()->uuid)
-            ->first();
+            ->firstOrFail();
 
-        if (!$job) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Jobs not found'
-            ], 404);
-        }
+        $job->update($request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'salary_from' => 'required|numeric',
+            'salary_to' => 'required|numeric|gte:salary_from',
+        ]));
 
-        $validated = $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
-            'salary_from' => 'sometimes|numeric|min:0',
-            'salary_to' => 'sometimes|numeric|gte:salary_from',
-            'status' => 'sometimes|in:active,inactive',
-        ]);
-
-        $job->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Job updated successfully',
-            'data' => $job
-        ]);
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -117,23 +96,11 @@ class JobWebController extends Controller
      */
     public function destroy(string $uuid)
     {
-        $job = Jobs::where('uuid', $uuid)
+        Jobs::where('uuid', $uuid)
             ->where('company_uuid', auth()->user()->uuid)
-            ->first();
+            ->delete();
 
-        if (!$job) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Jobs not found'
-            ], 404);
-        }
-
-        $job->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Jobs deleted successfully'
-        ]);
+        return response()->json(['success' => true]);
     }
 
 

@@ -27,32 +27,32 @@
                        border-t border-white/10 bg-white/10">
 
                     <div class="flex justify-center gap-4 py-6">
-                        <a href="{{ route('company.job.create') }}"
-                                class="px-6 py-2 rounded-full bg-white text-[#003A75] 
+                        <a href="{{ route('company.jobs.showForm') }}"
+                            class="px-6 py-2 rounded-full bg-white text-[#003A75] 
                               font-semibold shadow hover:scale-105 transition">
-                                Create Job
-                            </a>
+                            Create Job
+                        </a>
 
-                            <a href="{{ route('company.jobs.list') }}"
-                                class="px-6 py-2 rounded-full bg-blue-600 
+                        <a href="{{ route('company.jobs.list') }}"
+                            class="px-6 py-2 rounded-full bg-blue-600 
                               font-semibold shadow hover:bg-blue-700 transition">
-                                Existing Jobs
-                            </a>
-                        </div>
+                            Existing Jobs
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                {{-- Applications --}}
-                <a href="#"
-                    class="bg-white/15 backdrop-blur-lg border border-white/20 
+            {{-- Applications --}}
+            <a href="#"
+                class="bg-white/15 backdrop-blur-lg border border-white/20 
                   rounded-2xl p-6 hover:bg-white/20 transition">
 
-                    <h3 class="text-xl font-semibold">Applications</h3>
-                    <p class="text-white/80 mt-1">
-                        View candidates who applied for your jobs.
-                    </p>
-                </a>
+                <h3 class="text-xl font-semibold">Applications</h3>
+                <p class="text-white/80 mt-1">
+                    View candidates who applied for your jobs.
+                </p>
+            </a>
 
-            </div>
         </div>
+    </div>
 @endsection
