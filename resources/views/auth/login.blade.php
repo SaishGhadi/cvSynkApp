@@ -22,7 +22,7 @@
         <h2 class="text-center text-3xl font-bold mb-6">Login to Your Account</h2>
 
         {{-- Login Form --}}
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('api.login') }}">
             @csrf
 
             {{-- Email --}}
@@ -42,15 +42,9 @@
                     text-white placeholder-white/60 focus:outline-none focus:ring-2
                     focus:ring-blue-300">
             </div>
-
-            {{-- Forgot Password --}}
-            <div class="text-right mb-6">
-                <a href="#" class="text-white/80 text-sm hover:underline">Forgot Password?</a>
-            </div>
-
+            
             {{-- Submit --}}
-            <button type="submit"
-                class="w-full py-3 bg-white text-[#003A75] font-semibold rounded-full shadow-lg">
+            <button type="submit" class="w-full py-3 bg-white text-[#003A75] font-semibold rounded-full shadow-lg">
                 Login
             </button>
         </form>
@@ -58,8 +52,16 @@
         {{-- Register redirect --}}
         <p class="text-center text-white/80 mt-4 text-sm">
             Don't have an account?
-            <a href="/register" class="text-white font-semibold underline">Register</a>
         </p>
+        <p class="text-center text-sm mt-1">
+            <a href="{{ route('candidateRegister') }}" class="text-white font-semibold underline mr-3">
+                Register as Candidate
+            </a>
+            <a href="{{ route('companyRegister') }}" class="text-white font-semibold underline">
+                Register as Company
+            </a>
+        </p>
+
 
     </div>
 
