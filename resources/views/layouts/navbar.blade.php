@@ -1,18 +1,27 @@
-<nav class="bg-gray-900 text-white px-6 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-semibold">CV SYNK</h1>
+<nav class="w-full border-b border-white/10 bg-[#002C59]/30 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-    <div class="flex items-center gap-6">
-        @auth
-            <span class="text-gray-300">{{ auth()->user()->name }}</span>
+        {{-- Logo --}}
+        <div class="flex items-center gap-2">
+            <img src="{{ asset('assets/logo-inverted.svg') }}" class="h-9" alt="CV SYNK">
+        </div>
 
-            <form action="{{ route('logout.web') }}" method="POST">
-                @csrf
-                <button 
-                    class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-white"
-                    type="submit">
-                    Logout
-                </button>
-            </form>
-        @endauth
+        {{-- Right Side --}}
+        <div class="flex items-center gap-4">
+            @auth
+                <span class="text-white/80 text-sm">
+                    {{ auth()->user()->name }}
+                </span>
+
+                <form action="{{ route('logout.web') }}" method="POST">
+                    @csrf
+                    <button
+                        class="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 transition text-sm font-semibold">
+                        Logout
+                    </button>
+                </form>
+            @endauth
+        </div>
+
     </div>
 </nav>

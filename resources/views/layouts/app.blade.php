@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV SYNK</title>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
+
+    {{-- Alpine (optional, future ready) --}}
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gradient-to-b from-[#0052A2] to-[#0274D3] text-white min-h-screen">
 
-    <!-- Optional Navbar -->
-    @hasSection('navbar')
-        @yield('navbar')
-    @endif
+    {{-- Navbar --}}
+    @include('layouts.navbar')
 
-    <!-- Main Container -->
-    <main class="min-h-screen">
+    {{-- Page Content --}}
+    <main class="py-12">
         @yield('content')
     </main>
 
