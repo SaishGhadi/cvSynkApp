@@ -73,8 +73,8 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'Company registered successfully',
             'user' => $user
-        ], 201),
-        redirect()->route('company.dashboard');
+        ], 201);
+
     }
 
     /**
@@ -83,7 +83,7 @@ class AuthApiController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
@@ -100,9 +100,9 @@ class AuthApiController extends Controller
             : '/company/dashboard';
 
         return response()->json([
-            'message'     => 'Login successful',
-            'user'        => $user,
-            'token'       => $token,
+            'message' => 'Login successful',
+            'user' => $user,
+            'token' => $token,
             'redirect_to' => $redirectTo
         ]);
     }
