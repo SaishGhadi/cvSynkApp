@@ -1,37 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- Success Message --}}
+@if (session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+{{-- Error Messages --}}
+@if ($errors->any())
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="max-w-7xl mx-auto px-6">
 
     {{-- Header --}}
-    <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold text-[#003A75]">
+    <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold text-white">
             Available Jobs
         </h2>
 
         <a href="{{ route('candidate.applied.jobs') }}"
-           class="px-5 py-2 rounded-full bg-blue-600 text-white
-                  font-semibold hover:bg-blue-700 transition">
+           class="px-5 py-2 rounded-full bg-white text-[#003A75]
+                  font-semibold shadow hover:scale-105 transition">
             Applied Jobs
         </a>
     </div>
 
     {{-- Jobs Grid --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
         @forelse ($jobs as $job)
-            <div class="bg-white border border-blue-100 rounded-2xl shadow
-                        hover:shadow-lg transition p-6 flex flex-col">
+            <div class="bg-white/15 backdrop-blur-lg border border-white/20
+                        rounded-2xl shadow-lg p-6 flex flex-col
+                        hover:bg-white/20 transition">
 
-                <h3 class="text-xl font-semibold text-[#003A75] mb-2">
+                <h3 class="text-xl font-semibold text-white mb-2">
                     {{ $job->title }}
                 </h3>
 
-                <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p class="text-white/80 text-sm mb-4 line-clamp-3 leading-relaxed">
                     {{ $job->description }}
                 </p>
 
-                <div class="text-sm text-gray-700 mb-4">
+                <div class="text-sm text-white/90 mb-6">
                     <span class="font-semibold">Salary:</span>
                     ₹{{ number_format($job->salary_from) }} –
                     ₹{{ number_format($job->salary_to) }}
@@ -43,15 +61,15 @@
                       class="mt-auto">
                     @csrf
                     <button type="submit"
-                        class="w-full py-2 rounded-full bg-[#003A75] text-white
-                               font-semibold hover:bg-blue-700 transition">
+                        class="w-full py-2.5 rounded-full bg-white text-[#003A75]
+                               font-semibold shadow hover:scale-105 transition">
                         Quick Apply
                     </button>
                 </form>
 
             </div>
         @empty
-            <p class="text-gray-600">
+            <p class="text-white/70">
                 No active jobs available right now.
             </p>
         @endforelse

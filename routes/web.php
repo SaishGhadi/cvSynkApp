@@ -76,10 +76,14 @@ Route::middleware(['auth', 'candidate'])->prefix('candidate')->group(function ()
 
 
 
+
     Route::post('/jobs/{uuid}/apply', [candidateWebController::class, 'apply'])
         ->name('candidate.jobs.apply');
 
-    Route::get('/my-applications', [candidateWebController::class, 'show'])
+    Route::get('/my-applications', [candidateWebController::class, 'index'])
         ->name('candidate.applied.jobs');
+
+    Route::delete('/my-applications/{uuid}', [candidateWebController::class, 'destroy'])
+        ->name('candidate.application.revoke');
 
 });

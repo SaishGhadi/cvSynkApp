@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthApiController;
 use App\Http\Controllers\api\JobApiController;
+use App\Http\Controllers\api\candidateApiController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -41,5 +42,14 @@ Route::middleware(['auth:sanctum', 'company'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'candidate'])->group(function () {
-    // Candidate APIs (Module 3)
+
+    // Apply for a job
+    Route::post('/jobs/{uuid}/apply', [candidateApiController::class, 'apply']);
+
+    // Get my applications
+    Route::get('/my-applications', [candidateApiController::class, 'index']);
+
+    // Revoke application
+    Route::delete('/my-applications/{uuid}', [candidateApiController::class, 'destroy']);
+
 });
