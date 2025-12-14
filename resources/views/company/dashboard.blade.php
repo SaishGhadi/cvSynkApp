@@ -43,7 +43,7 @@
             </div>
 
             {{-- Applications --}}
-            <a href="#"
+            <a href="{{ route('company.applications.jobs') }}"
                 class="bg-white/15 backdrop-blur-lg border border-white/20 
                   rounded-2xl p-6 hover:bg-white/20 transition">
 

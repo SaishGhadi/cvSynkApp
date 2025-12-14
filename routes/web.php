@@ -4,6 +4,8 @@ use App\Http\Controllers\JobWebController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authController;
 use App\Http\Controllers\candidateWebController;
+use App\Http\Controllers\CompanyApplicationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,26 @@ Route::middleware(['auth', 'company'])->prefix('company')->group(function () {
 
     Route::put('/jobs/{uuid}', [JobWebController::class, 'update'])
         ->name('company.jobs.update');
+
+
+    // Application Secxtion
+
+    // List company jobs with application count
+    Route::get('/applications', [CompanyApplicationController::class, 'jobs'])
+        ->name('company.applications.jobs');
+
+    // List applications for a specific job
+    Route::get('/applications/{jobUuid}', [CompanyApplicationController::class, 'applications'])
+        ->name('company.applications.list');
+
+    // Accept / Reject
+    Route::post('/applications/{applicationUuid}/accept', [CompanyApplicationController::class, 'accept'])
+        ->name('company.application.accept');
+
+    Route::post('/applications/{applicationUuid}/reject', [CompanyApplicationController::class, 'reject'])
+        ->name('company.application.reject');
+
+    
 });
 
 /*
