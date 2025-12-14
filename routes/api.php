@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyApplicationApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthApiController;
@@ -39,6 +40,15 @@ Route::middleware(['auth:sanctum', 'company'])->group(function () {
     // delete job 
     Route::delete('/company/jobs/{uuid}', [JobApiController::class, 'destroy']);
 
+
+
+
+    /// Company Application APIs (Module 3)
+    Route::get('/jobs', [CompanyApplicationApiController::class, 'jobs']);
+    Route::get('/jobs/{uuid}/applications', [CompanyApplicationApiController::class, 'applications']);
+
+    Route::post('/applications/{uuid}/accept', [CompanyApplicationApiController::class, 'accept']);
+    Route::post('/applications/{uuid}/reject', [CompanyApplicationApiController::class, 'reject']);
 });
 
 Route::middleware(['auth:sanctum', 'candidate'])->group(function () {
